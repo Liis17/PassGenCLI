@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PassGen": {
+      "commandName": "Project",
+      "commandLineArgs": "-d 2"
+    }
+  }
+}
