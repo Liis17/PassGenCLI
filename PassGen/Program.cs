@@ -14,7 +14,7 @@
             }
             if (inparam == "")
             {
-
+                //bruh
             }
             else if (inparam.Contains("-d1") || inparam.Contains("-d2") || inparam.Contains("-d3") || inparam.Contains("-dif1") || inparam.Contains("-dif2") || inparam.Contains("-dif3"))
             {
