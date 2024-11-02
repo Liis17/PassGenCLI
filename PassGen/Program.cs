@@ -11,7 +11,9 @@ namespace PassGen
             int passwordCount = 1;  // количество паролей по умолчанию
             int complexityLevel = 3; // уровень сложности по умолчанию
 
-            int version = 3; // текущая версия программы
+            string version = "3.1";  // текущая версия программы
+            string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string helpFilePath = Path.Combine(exeDirectory, "no.help"); 
 
             bool outputPass = true;
 
@@ -19,9 +21,10 @@ namespace PassGen
             Console.WriteLine();
             if (args.Length == 0)
             {
-                if (!File.Exists("no.help"))
+                if (!File.Exists(helpFilePath))
                 {
-                    Console.WriteLine("Программа имеет дополнительнрые параметры. Используйте -h или -help для справки.", Console.ForegroundColor = ConsoleColor.DarkGray);
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine("Программа имеет дополнительные параметры. Используйте -h или -help для справки.");
                     Console.WriteLine();
                     Console.ResetColor();
                 }
