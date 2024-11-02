@@ -11,18 +11,21 @@ namespace PassGen
             int passwordCount = 1;  // количество паролей по умолчанию
             int complexityLevel = 3; // уровень сложности по умолчанию
 
-            int version = 2; // текущая версия программы
+            int version = 3; // текущая версия программы
+
+            bool outputPass = true;
 
             Console.WriteLine($"        PASSGEN by Li_is v{version}");
             Console.WriteLine();
             if (args.Length == 0)
             {
-                Console.WriteLine("Программа имеет дополнительнрые параметры.\nИспользуйте -h или -help для справки.", Console.ForegroundColor = ConsoleColor.DarkGray);
-                Console.WriteLine();
-                Console.ResetColor();
+                if (!File.Exists("no.help"))
+                {
+                    Console.WriteLine("Программа имеет дополнительнрые параметры. Используйте -h или -help для справки.", Console.ForegroundColor = ConsoleColor.DarkGray);
+                    Console.WriteLine();
+                    Console.ResetColor();
+                }
             }
-
-            
 
             // Парсинг аргументов командной строки
             for (int i = 0; i < args.Length; i++)
@@ -32,6 +35,7 @@ namespace PassGen
                     case "-h":
                     case "-help":
                         ShowHelp();
+                        outputPass = false;
                         break;
 
                     case "-d":
@@ -44,6 +48,7 @@ namespace PassGen
                         else
                         {
                             Console.WriteLine("Ошибка: для -d или -dif необходимо указать значение от 1 до 3.");
+                            outputPass = false;
                         }
                         break;
 
@@ -57,6 +62,7 @@ namespace PassGen
                         else
                         {
                             Console.WriteLine("Ошибка: для -n или -num необходимо указать положительное число.");
+                            outputPass = false;
                         }
                         break;
 
@@ -70,19 +76,28 @@ namespace PassGen
                         else
                         {
                             Console.WriteLine("Ошибка: для -l или -len необходимо указать положительное число.");
+                            outputPass = false;
                         }
                         break;
 
                     default:
                         Console.WriteLine($"Неизвестный параметр: {args[i]}. Используйте -h или -help для справки.");
+                        outputPass = false;
                         break;
                 }
             }
-
-            GenerateAndDisplayPasswords(passwordLength, passwordCount, complexityLevel);
-            Console.WriteLine();
-            Console.WriteLine("Любая клавиша для выхода.");
-            Console.ReadKey();
+            if (outputPass)
+            {
+                GenerateAndDisplayPasswords(passwordLength, passwordCount, complexityLevel);
+                Console.WriteLine();
+                Console.WriteLine("Любая клавиша для выхода.");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Любая клавиша для выхода.");
+                Console.ReadKey();
+            }
         }
 
         static void ShowHelp()
@@ -92,6 +107,8 @@ namespace PassGen
             Console.WriteLine("-d или -dif [1-3]    : Уровень сложности пароля (1 - цифры, 2 - цифры и буквы, 3 - цифры, буквы и символы).");
             Console.WriteLine("-n или -num [число]  : Задает количество паролей.");
             Console.WriteLine("-l или -len [число]  : Задает длину пароля.");
+            Console.WriteLine(); 
+            Console.WriteLine("Создайте файл \"no.help\" в папке программы чтобы не видет напоминание о дополнительных функциях.");
             Console.WriteLine("----------------------------------");
         }
 
