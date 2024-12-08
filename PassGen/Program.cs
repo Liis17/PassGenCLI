@@ -17,7 +17,6 @@ namespace PassGen
 
             bool outputPass = true;
 
-            Console.WriteLine($"        PASSGEN by Li_is v{version}");
             Console.WriteLine();
             if (args.Length == 0)
             {
